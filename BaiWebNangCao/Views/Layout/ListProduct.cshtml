@@ -1,0 +1,35 @@
+﻿@model List<BaiWebNangCao.Models.Product>
+
+<div class="hot-products">
+    <h3 class="title"><strong>@ViewBag.type</strong> Products</h3>
+    <div class="control"><a id="prev_hot" class="prev" href="#">&lt;</a><a id="next_hot" class="next" href="#">&gt;</a></div>
+    <ul id="hot">
+        @for (int j = 0; j < Model.Count; j += 4)
+        {
+            <li>
+                <div class="row">
+                    @for (int i = j; i < j + 4 && i < Model.Count; i++)
+                    {
+                        <div class="col-md-3 col-sm-6">
+                            <div class="products" style="min-height: 455px">
+                                <div class="thumbnail" style="height: auto">
+                                    @{ string img_path = "/Assets/Images/Products/" + @Model[i].image;}
+                                    <a>
+                                        <img src="@img_path" alt="Product Name">
+                                    </a>
+                                </div>
+                                <div class="productname">@Model[i].name</div>
+                                <h4 class="price">@Html.FormatValue(@Model[i].price, "{0:#,###}")</h4>
+                                <div class="button_group">
+                                    @Html.ActionLink("Add To Cart", "AddToCart", "Cart", new { productID = Model[i].id }, new { @class = "button add-cart" })
+                                    <button class="button compare" type="button"><i class="fa fa-exchange"></i></button>
+                                    <button class="button wishlist" type="button"><i class="fa fa-heart-o"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </li>
+        }
+    </ul>
+</div>

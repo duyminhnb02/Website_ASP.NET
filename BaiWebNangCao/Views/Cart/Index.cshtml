@@ -1,0 +1,109 @@
+﻿@model List<BaiWebNangCao.Models.Cart>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<div class="container_fullwidth">
+    <div class="container shopping-cart">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="title">
+                    Giỏ hàng
+                </h3>
+                <div class="clearfix">
+                </div>
+                <table class="shop-table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Ảnh
+                            </th>
+                            <th>
+                                Tên
+                            </th>
+                            <th>
+                                Đơn giá
+                            </th>
+                            <th>
+                                Số lượng
+                            </th>
+                            <th>
+                                Xóa
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <img src="~/Assets/Images/Products/@item.productDetail.image" alt="">
+                                        </td>
+                                        <td>
+                                            <h5>@item.productDetail.name</h5>
+                                        </td>
+                                        <td>
+                                            @Html.FormatValue(item.productDetail.price, "{0:#,###}")
+                                        </td>
+                                        <td>
+                                            x @item.quantity
+                                        </td>
+                                        <td>
+                                            <a href="/Cart/DeleteFromCart?productID=@item.productID">
+                                                <img src="~/Assets/User/images/remove.png" alt="">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                <a href="/Home/Index">
+                                    <button class="pull-left">
+                                        Mua thêm
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="clearfix">
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-6" style="float: right">
+                        <div class="shippingbox">
+                            <div class="grandtotal">
+                                <h5>
+                                    TỔng:
+                                </h5>
+                                <span>
+                                    @{
+                                        if (Model != null)
+                                        {
+                                            @Html.FormatValue(@Model.Sum(x => x.productDetail.price * x.quantity), "{0:#,###}")
+                                        }
+                                    }
+                                </span>
+                            </div>
+                            <button style="width: 100%">
+                                @Html.ActionLink("Thanh toán", "DeleteCart", "Cart")
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script {
+    <script src="~/Assets/User/js/cart.js"></script>
+}

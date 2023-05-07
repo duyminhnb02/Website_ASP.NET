@@ -1,0 +1,14 @@
+﻿@model BaiWebNangCao.Models.Product
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<div class="container_fullwidth">
+    <div class="container">
+        @Html.Action("ListProduct", "Layout", new { type = "Hot" })
+        <div class="clearfix"></div>
+        @Html.Action("ListProduct", "Layout", new { type = "Featured" })
+    </div>
+</div>
